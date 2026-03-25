@@ -1,0 +1,132 @@
+index.html
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KORGAT - Personal Page</title>
+    <style>
+        body {
+            background-color: #0f0f0f;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 40px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+            max-width: 400px;
+            width: 90%;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .username {
+            color: #00d4ff;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            display: block;
+            text-decoration: none;
+        }
+
+        .wallet-box {
+            background: #1a1a1a;
+            padding: 15px;
+            border-radius: 10px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            word-break: break-all;
+            border: 1px dashed #444;
+            margin-top: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .wallet-box:hover {
+            background: #252525;
+            border-color: #00d4ff;
+        }
+
+        .label {
+            font-size: 0.8rem;
+            color: #888;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        .social-links {
+            margin-top: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #00d4ff;
+            color: #000;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: #0099bb;
+            transform: translateY(-2px);
+        }
+
+        /* Анимация заднего фона */
+        .bg-anim {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at center, #1b2735 0%, #090a0f 100%);
+        }
+    </style>
+</head>
+<body>
+
+<div class="bg-anim"></div>
+
+<div class="container">
+    <h1>ELYADYPA</h1>
+    <a href="https://t.me/Elyadypa" class="username">@Elyadypa</a>
+    
+    <div class="label">TON Wallet</div>
+    <div class="wallet-box" onclick="copyWallet()">
+        UQDBTEOFwIQn8LvcPrHfTRaWcHF61virBM5kwoK-zuzVzVQW
+    </div>
+    <p style="font-size: 0.7rem; color: #555; margin-top: 5px;">Нажмите, чтобы скопировать</p>
+
+    <div class="social-links">
+        <a href="https://t.me/Elyadypa" class="btn">Связаться в Telegram</a>
+    </div>
+</div>
+
+<script>
+    function copyWallet() {
+        const wallet = "UQDBTEOFwIQn8LvcPrHfTRaWcHF61virBM5kwoK-zuzVzVQW";
+        navigator.clipboard.writeText(wallet).then(() => {
+            alert("Кошелек скопирован!");
+        });
+    }
+</script>
+
+</body>
+</html>
