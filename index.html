@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ELYADYPA | Premium Escrow</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg: #010409;
+            --accent: #007aff;
+            --purple: #5a2ab3;
+            --glass: rgba(255, 255, 255, 0.04);
+            --border: rgba(255, 255, 255, 0.08);
+        }
+
+        /* [7] ПЕРЕЛИВАЮЩИЙСЯ ФОН */
+        body {
+            background: linear-gradient(-45deg, #010409, #0d1117, #0a0514, #010409);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: white;
+            font-family: 'Inter', sans-serif;
+            margin: 0; padding: 0;
+            display: flex; flex-direction: column; align-items: center;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        #particles-js {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none;
+        }
+
+        .container {
+            position: relative; z-index: 10;
+            width: 100%; max-width: 430px;
+            padding: 30px 20px;
+        }
+
+        /* [2] ЯЗЫК (КРАСНЫЙ) */
+        .lang-card { display: flex; justify-content: flex-end; margin-bottom: 25px; }
+        .l-btn {
+            background: var(--glass); border: 1px solid var(--border);
+            color: #555; padding: 8px 16px; border-radius: 12px;
+            font-size: 11px; font-weight: 900; cursor: pointer; transition: 0.3s;
+        }
+        .l-btn.active { background: var(--accent); color: white; border-color: var(--accent); box-shadow: 0 0 15px rgba(0,122,255,0.4); }
+
+        /* ПРОФИЛЬ */
+        .header { text-align: center; margin-bottom: 40px; }
+        .avatar-wrap { position: relative; width: 120px; height: 120px; margin: 0 auto 20px; }
+        .avatar {
+            width: 100%; height: 100%; border-radius: 38px;
+            border: 2px solid var(--border); object-fit: cover;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .online {
+            position: absolute; bottom: 8px; right: 8px; width: 20px; height: 20px;
+            background: #32d74b; border: 4px solid var(--bg); border-radius: 50%;
+            box-shadow: 0 0 15px #32d74b;
+        }
+        h1 { font-size: 32px; font-weight: 900; letter-spacing: -1.5px; margin: 0; background: linear-gradient(#fff, #888); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        /* [1] СТАТИСТИКА (КАК НА ФОТО) */
+        .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 30px; }
+        .stat-box {
+            background: var(--glass); border: 1px solid var(--border);
+            padding: 25px 10px; border-radius: 28px; text-align: center;
+            backdrop-filter: blur(10px);
+        }
+        .stat-box b { font-size: 28px; font-weight: 900; display: block; margin-bottom: 5px; }
+        .stat-box span { font-size: 10px; font-weight: 700; color: #666; text-transform: uppercase; letter-spacing: 1.5px; }
+
+        /* [1] ЭКОСИСТЕМА (КАК НА ФОТО) */
+        .label { font-size: 11px; font-weight: 900; color: #3d444d; text-transform: uppercase; letter-spacing: 2px; margin: 0 0 15px 10px; display: block;}
+        .eco-card {
+            background: rgba(255,255,255,0.02); border: 1px solid var(--border);
+            border-radius: 28px; padding: 10px; margin-bottom: 35px;
+        }
+        .eco-item {
+            display: flex; align-items: center; padding: 18px; border-radius: 20px;
+            transition: 0.3s; cursor: pointer;
+        }
+        .eco-item:hover { background: rgba(255,255,255,0.03); }
+        .eco-img {
+            width: 48px; height: 48px; background: #000; border-radius: 15px;
+            display: flex; align-items: center; justify-content: center;
+            margin-right: 18px; font-size: 20px; color: var(--accent);
+            box-shadow: inset 0 0 10px rgba(255,255,255,0.1);
+        }
+        .eco-info h3 { font-size: 15px; margin: 0; font-weight: 700; }
+        .eco-info p { font-size: 12px; color: #555; margin: 4px 0 0 0; }
+
+        /* [1] ШАГИ 1-2-3-4 (КАК НА ФОТО) */
+        .steps {
+            background: #000; border: 1px solid var(--border);
+            border-radius: 32px; padding: 30px 25px; margin-bottom: 40px;
+        }
+        .step { display: flex; gap: 20px; margin-bottom: 30px; position: relative; }
+        .step:last-child { margin-bottom: 0; }
+        .step-n {
+            width: 36px; height: 36px; background: var(--accent); border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 900; font-size: 15px; flex-shrink: 0;
+            box-shadow: 0 0 20px rgba(0, 122, 255, 0.4); z-index: 2;
+        }
+        .step::after {
+            content: ''; position: absolute; left: 18px; top: 36px;
+            width: 1px; height: 30px; background: #1a1a1a;
+        }
+        .step:last-child::after { display: none; }
+        .step-t { font-size: 14px; color: #888; line-height: 1.6; padding-top: 4px; }
+
+        /* [4] КОШЕЛЕК (ФИОЛЕТОВЫЙ) */
+        .wallet {
+            background: #050505; border: 1px solid #111; border-top: 3px solid var(--purple);
+            padding: 30px 25px; border-radius: 30px; margin-bottom: 30px;
+        }
+        .addr {
+            background: rgba(90, 42, 179, 0.05); border: 1px dashed rgba(90, 42, 179, 0.2);
+            padding: 15px; border-radius: 15px; font-family: monospace; font-size: 11px;
+            color: #777; word-break: break-all; margin-top: 15px; cursor: pointer;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+
+        /* КНОПКА СТАРТА */
+        .btn {
+            background: var(--accent); padding: 25px; border-radius: 28px;
+            display: block; text-align: center; text-decoration: none;
+            color: white; font-weight: 900; font-size: 16px; text-transform: uppercase;
+            box-shadow: 0 15px 35px rgba(0, 122, 255, 0.3); transition: 0.3s;
+        }
+        .btn:active { transform: scale(0.96); }
+
+        #toast {
+            position: fixed; bottom: -60px; left: 50%; transform: translateX(-50%);
+            background: #fff; color: #000; padding: 15px 30px; border-radius: 50px;
+            font-weight: 900; font-size: 13px; transition: 0.5s; z-index: 1000;
+        }
+        #toast.show { bottom: 40px; }
+    </style>
+</head>
+<body>
+
+    <div id="particles-js"></div>
+    <div id="toast">COPIED</div>
+
+    <div class="container">
+        <!-- [2] ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКА -->
+        <div class="lang-card">
+            <button class="l-btn active" onclick="setL('ru', this)">RU</button>
+            <button class="l-btn" onclick="setL('en', this)">EN</button>
+        </div>
+
+        <div class="header">
+            <div class="avatar-wrap">
+                <img src="IMG_20260326_092632_645.jpg" class="avatar" onerror="this.src='https://ui-avatars.com/api/?name=E&background=007aff&color=fff'">
+                <div class="online"></div>
+            </div>
+            <h1>ELYADYPA</h1>
+        </div>
+
+        <!-- [1] СТАТИСТИКА -->
+        <div class="stats">
+            <div class="stat-box">
+                <b>3,742</b>
+                <span class="i18n" data-ru="Сделок проведено" data-en="Deals Done">Сделок проведено</span>
+            </div>
+            <div class="stat-box">
+                <b>100%</b>
+                <span class="i18n" data-ru="Безопасно" data-en="Secure">Безопасно</span>
+            </div>
+        </div>
+
+        <!-- [1] ЭКОСИСТЕМА -->
+        <span class="label i18n" data-ru="Наша экосистема" data-en="Our Ecosystem">Наша экосистема</span>
+        <div class="eco-card">
+            <div class="eco-item">
+                <div class="eco-img"><i class="fas fa-shield-alt"></i></div>
+                <div class="eco-info">
+                    <h3 class="i18n" data-ru="Guarantor Service" data-en="Guarantor Service">Guarantor Service</h3>
+                    <p class="i18n" data-ru="Безопасность ваших активов" data-en="Security of your assets">Безопасность ваших активов</p>
+                </div>
+            </div>
+            <div class="eco-item">
+                <div class="eco-img"><i class="fas fa-layer-group"></i></div>
+                <div class="eco-info">
+                    <h3 class="i18n" data-ru="Crypto Exchange" data-en="Crypto Exchange">Crypto Exchange</h3>
+                    <p class="i18n" data-ru="Быстрый обмен BTC/ETH/TON" data-en="Fast exchange BTC/ETH/TON">Быстрый обмен BTC/ETH/TON</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- [1] ШАГИ -->
+        <div class="steps">
+            <div class="step">
+                <div class="step-n">1</div>
+                <div class="step-t i18n" data-ru="Создание общей сделки в чате с участием Гаранта." data-en="Creation of a general deal in the chat with Escrow.">Создание общей сделки в чате с участием Гаранта.</div>
+            </div>
+            <div class="step">
+                <div class="step-n">2</div>
+                <div class="step-t i18n" data-ru="Перевод средств/активов на хранение сервису." data-en="Transfer of funds/assets for storage to the service.">Перевод средств/активов на хранение сервису.</div>
+            </div>
+            <div class="step">
+                <div class="step-n">3</div>
+                <div class="step-t i18n" data-ru="Подтверждение выполнения условий сторонами." data-en="Confirmation of fulfillment by both parties.">Подтверждение выполнения условий сторонами.</div>
+            </div>
+            <div class="step">
+                <div class="step-n">4</div>
+                <div class="step-t i18n" data-ru="Выплата средств за вычетом комиссии." data-en="Payment of funds minus commission.">Выплата средств за вычетом комиссии.</div>
+            </div>
+        </div>
+
+        <!-- [4] КОШЕЛЕК -->
+        <div class="wallet">
+            <span style="font-size: 10px; font-weight: 900; color: #222; letter-spacing: 3px;">TON REQUISITES</span>
+            <div class="addr" onclick="copyA()">
+                <span id="target">UQDBTEOFwIQn8LvcPrHfTRaWcHF61virBM5kwoK-zuzVzVQW</span>
+                <i class="fas fa-copy" style="color: var(--purple);"></i>
+            </div>
+        </div>
+
+        <a href="https://t.me/Elyadypa" class="btn i18n" data-ru="Начать сделку" data-en="Start a deal">Начать сделку</a>
+
+        <div style="text-align: center; margin-top: 50px; font-size: 10px; color: #111; letter-spacing: 6px; font-weight: 900;">ELYADYPA 2026</div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Снег (белые точки)
+        try {
+            particlesJS("particles-js", {
+                "particles": {
+                    "number": { "value": 120 },
+                    "color": { "value": "#ffffff" },
+                    "opacity": { "value": 0.4, "random": true },
+                    "size": { "value": 2, "random": true },
+                    "move": { "enable": true, "speed": 1.2, "direction": "bottom", "out_mode": "out" }
+                }
+            });
+        } catch(e) {}
+
+        // Перевод
+        function setL(l, b) {
+            document.querySelectorAll('.l-btn').forEach(btn => btn.classList.remove('active'));
+            b.classList.add('active');
+            document.querySelectorAll('.i18n').forEach(el => el.innerText = el.getAttribute('data-' + l));
+        }
+
+        // Копирование
+        function copyA() {
+            navigator.clipboard.writeText(document.getElementById('target').innerText);
+            const t = document.getElementById('toast');
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 2200);
+        }
+    </script>
+</body>
+</html>
