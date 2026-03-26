@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elyadypa | Official</title>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+
+        :root {
+            --bg-dark: #030406;
+            --accent-blue: #007aff;
+            --card-glass: rgba(255, 255, 255, 0.03);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text-main: #ffffff;
+            --text-dim: #888da0;
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            background-color: var(--bg-dark);
+            background-image: radial-gradient(circle at top, #0c1a2e 0%, #030406 100%);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            margin: 0; padding: 20px;
+            display: flex; flex-direction: column; align-items: center;
+            min-height: 100vh; overflow-x: hidden;
+        }
+
+        /* КОСМИЧЕСКИЙ ФОН */
+        #particles-js {
+            position: fixed;
+            width: 100%; height: 100%;
+            top: 0; left: 0;
+            z-index: -1;
+        }
+
+        .container { max-width: 400px; width: 100%; z-index: 1; }
+
+        /* ПЛАВНОЕ ПОЯВЛЕНИЕ */
+        .reveal { 
+            opacity: 0; 
+            transform: translateY(30px); 
+            transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); 
+        }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* ШАПКА */
+        header { text-align: center; margin-top: 20px; margin-bottom: 40px; }
+        .avatar-wrapper { position: relative; display: inline-block; }
+        .avatar {
+            width: 100px; height: 100px;
+            border-radius: 35px;
+            border: 2px solid var(--card-border);
+            object-fit: cover;
+            box-shadow: 0 0 30px rgba(0, 122, 255, 0.2);
+        }
+        .name { 
+            font-size: 32px; font-weight: 800; font-style: italic; 
+            margin-top: 15px; letter-spacing: -1px; 
+        }
+        .status { color: var(--accent-blue); font-weight: 600; font-size: 14px; letter-spacing: 2px; text-transform: uppercase; margin-top: 5px; }
+
+        /* КАРТОЧКИ */
+        .glass-card {
+            background: var(--card-glass);
+            border: 1px solid var(--card-border);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 24px;
+            padding: 20px;
+            margin-bottom: 15px;
+            transition: 0.3s;
+        }
+
+        /* ГЛАВНЫЕ НАПРАВЛЕНИЯ */
+        .service-highlight {
+            background: linear-gradient(90deg, rgba(0,122,255,0.15) 0%, rgba(0,122,255,0.05) 100%);
+            border: 1px solid rgba(0,122,255,0.3);
+            text-align: center; font-weight: 800; font-style: italic;
+            padding: 18px; margin-bottom: 10px; border-radius: 18px;
+        }
+
+        .service-regular {
+            text-align: center; font-size: 14px; color: var(--text-dim);
+            padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.03);
+        }
+        .service-regular:last-child { border: none; }
+
+        /* СТАТИСТИКА */
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 25px; }
+        .stat-box { background: var(--card-glass); border: 1px solid var(--card-border); border-radius: 20px; padding: 15px; text-align: center; }
+        .stat-num { font-size: 22px; font-weight: 800; color: var(--accent-blue); display: block; }
+        .stat-desc { font-size: 10px; color: var(--text-dim); text-transform: uppercase; margin-top: 4px; font-weight: 600; }
+
+        /* ССЫЛКИ */
+        .nav-link {
+            display: flex; align-items: center; text-decoration: none; color: white;
+            padding: 18px; background: var(--card-glass); border: 1px solid var(--card-border);
+            border-radius: 20px; margin-bottom: 10px; transition: 0.3s;
+        }
+        .nav-link:active { transform: scale(0.97); background: rgba(255,255,255,0.08); }
+        .nav-icon { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; color: var(--accent-blue); font-size: 20px; }
+        .nav-info { margin-left: 10px; }
+        .nav-title { font-weight: 700; font-style: italic; font-size: 15px; }
+        .nav-user { font-size: 12px; color: var(--text-dim); }
+
+        /* ШАГИ СДЕЛКИ */
+        .step-row { display: flex; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.03); }
+        .step-row:last-child { border: none; }
+        .step-index { color: var(--accent-blue); font-weight: 800; margin-right: 15px; font-size: 16px; }
+        .step-text { font-size: 13px; color: var(--text-dim); }
+
+        /* КОШЕЛЕК */
+        .wallet-box { background: rgba(0,0,0,0.4); border-radius: 18px; padding: 20px; margin-top: 20px; border: 1px dashed rgba(255,255,255,0.1); }
+        .wallet-head { display: flex; justify-content: space-between; font-size: 12px; font-weight: 800; color: var(--text-dim); margin-bottom: 10px; }
+        .wallet-addr { font-family: monospace; font-size: 11px; word-break: break-all; color: var(--text-main); opacity: 0.8; line-height: 1.4; }
+        .copy-trigger { color: var(--accent-blue); cursor: pointer; text-transform: uppercase; }
+
+        .btn-action {
+            display: block; width: 100%; padding: 20px; background: var(--accent-blue);
+            color: white; text-decoration: none; text-align: center; border-radius: 22px;
+            font-weight: 800; font-style: italic; font-size: 18px; margin-top: 30px;
+            box-shadow: 0 15px 35px rgba(0, 122, 255, 0.4); transition: 0.3s;
+        }
+        .btn-action:active { transform: translateY(3px); box-shadow: none; }
+
+        #toast {
+            position: fixed; bottom: -60px; left: 50%; transform: translateX(-50%);
+            background: white; color: black; padding: 12px 30px; border-radius: 50px;
+            font-weight: 700; font-size: 14px; transition: 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.28); z-index: 9999;
+        }
+        #toast.show { bottom: 40px; }
+    </style>
+</head>
+<body>
+
+<div id="particles-js"></div>
+<div id="toast">Скопировано!</div>
+
+<div class="container">
+    <header class="reveal">
+        <div class="avatar-wrapper">
+            <img src="IMG_20260326_092632_645.jpg" class="avatar">
+        </div>
+        <div class="name">Elyadypa</div>
+        <div class="status">Official Guarantor</div>
+    </header>
+
+    <!-- НАПРАВЛЕНИЯ -->
+    <div class="glass-card reveal" style="padding: 10px;">
+        <div class="service-highlight">Гарант сделок</div>
+        <div class="service-highlight">Покупка/Продажа NFT</div>
+        <div class="service-regular">Криптовалюта</div>
+        <div class="service-regular">Telegram Stars</div>
+        <div class="service-regular">Обмен валют</div>
+    </div>
+
+    <!-- СТАТИСТИКА -->
+    <div class="stats-grid reveal">
+        <div class="stat-box">
+            <span class="stat-num">3.7k+</span>
+            <span class="stat-desc">Сделок</span>
+        </div>
+        <div class="stat-box">
+            <span class="stat-num">100%</span>
+            <span class="stat-desc">Выплат</span>
+        </div>
+    </div>
+
+    <!-- НАВИГАЦИЯ -->
+    <a href="https://t.me/aletr9" class="nav-link reveal">
+        <div class="nav-icon"><i class="fas fa-bullhorn"></i></div>
+        <div class="nav-info">
+            <div class="nav-title">Новости проекта</div>
+            <div class="nav-user">@aletr9</div>
+        </div>
+    </a>
+    <a href="https://t.me/Elyadypa" class="nav-link reveal">
+        <div class="nav-icon"><i class="fas fa-user-shield"></i></div>
+        <div class="nav-info">
+            <div class="nav-title">Личный контакт</div>
+            <div class="nav-user">@Elyadypa</div>
+        </div>
+    </a>
+    <a href="https://t.me/Elyadypaa" class="nav-link reveal">
+        <div class="nav-icon"><i class="fas fa-star"></i></div>
+        <div class="nav-info">
+            <div class="nav-title">Отзывы клиентов</div>
+            <div class="nav-user">@Elyadypaa</div>
+        </div>
+    </a>
+
+    <!-- ШАГИ -->
+    <div class="glass-card reveal">
+        <div style="font-weight: 800; font-style: italic; margin-bottom: 15px; font-size: 16px;">Порядок сделки:</div>
+        <div class="step-row"><span class="step-index">01</span><span class="step-text">Договариваетесь об условиях</span></div>
+        <div class="step-row"><span class="step-index">02</span><span class="step-text">Создаете чат с @Elyadypa</span></div>
+        <div class="step-row"><span class="step-index">03</span><span class="step-text">Покупатель вносит средства</span></div>
+        <div class="step-row"><span class="step-index">04</span><span class="step-text">Продавец передает товар/услугу</span></div>
+        <div class="step-row"><span class="step-index">05</span><span class="step-text">Гарант выплачивает средства</span></div>
+    </div>
+
+    <!-- КОШЕЛЕК -->
+    <div class="wallet-box reveal">
+        <div class="wallet-head">
+            <span>TON NETWORK</span>
+            <span class="copy-trigger" onclick="copyAddr()">Копировать</span>
+        </div>
+        <div class="wallet-addr" id="wallet">UQDBTEOFwIQn8LvcPrHfTRaWcHF61virBM5kwoK-zuzVzVQW</div>
+    </div>
+
+    <a href="https://t.me/Elyadypa" class="btn-action reveal">Открыть сделку</a>
+
+    <div style="text-align: center; margin-top: 50px; opacity: 0.1; font-size: 9px; letter-spacing: 2px;">
+        OFFICIAL SERVICE 2026
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+<script>
+    // НАСТРОЙКА ЛЕТЯЩИХ ЗВЕЗД
+    particlesJS("particles-js", {
+        "particles": {
+            "number": { "value": 160, "density": { "enable": true, "value_area": 800 } },
+            "color": { "value": "#ffffff" },
+            "shape": { "type": "circle" },
+            "opacity": { "value": 0.5, "random": true, "anim": { "enable": true, "speed": 1, "opacity_min": 0.1, "sync": false } },
+            "size": { "value": 2, "random": true },
+            "line_linked": { "enable": false },
+            "move": { 
+                "enable": true, 
+                "speed": 1.5, 
+                "direction": "top", 
+                "random": true, 
+                "straight": false, 
+                "out_mode": "out", 
+                "bounce": false 
+            }
+        },
+        "retina_detect": true
+    });
+
+    // СКРИПТ ПОЯВЛЕНИЯ
+    function reveal() {
+        var reveals = document.querySelectorAll(".reveal");
+        for (var i = 0; i < reveals.length; i++) {
+            var windowHeight = window.innerHeight;
+            var elementTop = reveals[i].getBoundingClientRect().top;
+            if (elementTop < windowHeight - 50) {
+                reveals[i].classList.add("active");
+            }
+        }
+    }
+    window.addEventListener("scroll", reveal);
+    window.addEventListener("load", reveal);
+
+    function copyAddr() {
+        const text = document.getElementById('wallet').innerText;
+        navigator.clipboard.writeText(text).then(() => {
+            const t = document.getElementById('toast');
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 2000);
+        });
+    }
+</script>
+</body>
+</html>
