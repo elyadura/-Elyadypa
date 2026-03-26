@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Christovski | Official</title>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        :root {
+            --bg-color-solid: #030406;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --card-restored-bg: #1a1c24;
+            --accent-blue: #007aff;
+            --accent-green: #34c759;
+            --text-main: #ffffff;
+            --text-dim: #888da0;
+            --border-radius-main: 24px;
+            --glow-shadow: 0 10px 30px rgba(0, 122, 255, 0.15);
+        }
+
+        body {
+            background-color: var(--bg-color-solid);
+            background-image: linear-gradient(230deg, #030406 30%, #0c1a2e 50%, #030406 70%);
+            background-size: 200% 200%;
+            animation: gradient-bg 10s ease infinite;
+            color: var(--text-main);
+            font-family: 'Inter', -apple-system, sans-serif;
+            margin: 0; padding: 20px;
+            display: flex; flex-direction: column; align-items: center;
+            overflow-x: hidden; position: relative;
+        }
+
+        @keyframes gradient-bg {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        #particles-js { position: fixed; width: 100%; height: 100%; top: 0; left: 0; z-index: -1; }
+        .glass { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
+        .container { max-width: 400px; width: 100%; display: flex; flex-direction: column; align-items: center; }
+
+        /* ВЕРХНЯЯ ПАНЕЛЬ: ЯЗЫК И СТАТУС */
+        .top-bar { width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .lang-switch { font-size: 10px; font-weight: 800; color: var(--text-dim); cursor: pointer; border: 1px solid rgba(255,255,255,0.1); padding: 4px 8px; border-radius: 8px; }
+        .lang-switch span.active { color: var(--accent-blue); }
+
+        .status-badge {
+            background: rgba(52, 199, 89, 0.1); border: 1px solid rgba(52, 199, 89, 0.2);
+            color: var(--accent-green); padding: 6px 12px; border-radius: 50px;
+            font-size: 10px; font-weight: 700; display: flex; align-items: center; gap: 6px; text-transform: uppercase;
+        }
+        .status-dot { width: 6px; height: 6px; background-color: var(--accent-green); border-radius: 50%; animation: pulse-green 2s infinite; }
+        @keyframes pulse-green {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(52, 199, 89, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(52, 199, 89, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(52, 199, 89, 0); }
+        }
+
+        header { display: flex; flex-direction: column; align-items: center; margin-bottom: 25px; text-align: center; }
+        .avatar-image { width: 90px; height: 90px; border-radius: 28px; border: 2px solid rgba(255,255,255,0.1); box-shadow: 0 0 30px rgba(0, 122, 255, 0.2); }
+        .guarantor-name { font-weight: 800; font-style: italic; font-size: 26px; margin-top: 15px; }
+
+        /* ТИПЫ СДЕЛОК */
+        .deals-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; margin-bottom: 25px; }
+        .deal-item { background: var(--card-bg); border-radius: 18px; padding: 15px; display: flex; flex-direction: column; gap: 8px; border: 1px solid rgba(255,255,255,0.03); }
+        .deal-item i { color: var(--accent-blue); font-size: 20px; }
+        .deal-item span { font-size: 12px; font-weight: 700; line-height: 1.2; }
+        .deal-main { grid-column: span 2; background: linear-gradient(135deg, rgba(0,122,255,0.1), rgba(0,0,0,0)); border: 1px solid rgba(0,122,255,0.2); }
+
+        /* ПОЧЕМУ Я */
+        .why-me-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; margin-bottom: 25px; }
+        .benefit-card { background: rgba(255,255,255,0.03); padding: 15px; border-radius: 18px; text-align: center; }
+        .benefit-card i { font-size: 18px; color: var(--accent-green); margin-bottom: 8px; display: block; }
+        .benefit-title { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; }
+
+        .new-guarantor-card { background-color: var(--card-restored-bg); border-radius: 20px; padding: 20px; width: 100%; box-sizing: border-box; margin-bottom: 25px; box-shadow: var(--glow-shadow); }
+        .card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+        .card-title { font-weight: 800; font-style: italic; font-size: 20px; margin: 0; }
+        .commission-badge { background: rgba(0, 122, 255, 0.1); color: var(--accent-blue); font-size: 11px; font-weight: 700; padding: 5px 12px; border-radius: 8px; }
+
+        .link-card { background: var(--card-bg); border-radius: 18px; padding: 16px 20px; margin-bottom: 10px; display: flex; align-items: center; text-decoration: none; color: white; width: 100%; box-sizing: border-box; transition: 0.3s; }
+        .link-card:active { transform: scale(0.97); }
+        .link-icon { color: var(--accent-blue); font-size: 18px; margin-right: 15px; }
+        .link-info { flex-grow: 1; }
+        .link-title { font-weight: 700; font-style: italic; font-size: 15px; }
+        .link-subtitle { color: var(--text-dim); font-size: 11px; }
+
+        .section-title { width: 100%; font-weight: 800; font-style: italic; margin: 20px 0 12px; font-size: 16px; padding-left: 5px; color: var(--text-dim); }
+
+        .wallet-card { background: var(--card-bg); border-radius: 20px; padding: 20px; margin-top: 20px; width: 100%; box-sizing: border-box; }
+        .wallet-header { display: flex; justify-content: space-between; margin-bottom: 10px; font-weight: 600; font-size: 13px; }
+        .wallet-address { font-family: monospace; font-size: 10px; color: var(--text-dim); background: rgba(0,0,0,0.3); padding: 12px; border-radius: 12px; word-break: break-all; }
+        .copy-btn { color: var(--accent-blue); font-weight: 700; cursor: pointer; }
+
+        .main-btn { background: var(--accent-blue); color: white; text-align: center; padding: 18px; border-radius: 20px; text-decoration: none; font-weight: 800; font-style: italic; font-size: 17px; display: block; margin-top: 25px; width: 100%; box-sizing: border-box; box-shadow: 0 10px 30px rgba(0,122,255,0.4); }
+
+        #toast { position: fixed; bottom: -100px; left: 50%; transform: translateX(-50%); background: #fff; color: #000; padding: 12px 25px; border-radius: 50px; font-weight: 700; transition: 0.5s; z-index: 1000; }
+        #toast.show { bottom: 40px; }
+        .footer { text-align: center; color: #333; font-size: 9px; margin-top: 40px; text-transform: uppercase; letter-spacing: 2px; }
+        .reveal { opacity: 0; transform: translateY(15px); transition: 0.6s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
+<body>
+
+<div id="particles-js"></div>
+<div id="toast">Скопировано!</div>
+
+<div class="container">
+    <div class="top-bar reveal">
+        <div class="lang-switch"><span class="active">RU</span> / <span>EN</span></div>
+        <div class="status-badge"><div class="status-dot"></div>В СЕТИ</div>
+    </div>
+
+    <header class="reveal">
+        <img src="IMG_20260326_092632_645.jpg" alt="Avatar" class="avatar-image">
+        <div class="guarantor-name">Christovski</div>
+    </header>
+
+    <div class="section-title reveal">Направления работы</div>
+    <div class="deals-grid reveal">
+        <div class="deal-item deal-main">
+            <i class="fas fa-image"></i>
+            <span>Продажа / Покупка NFT <small>(Priority)</small></span>
+        </div>
+        <div class="deal-item">
+            <i class="fas fa-star"></i>
+            <span>Telegram Stars</span>
+        </div>
+        <div class="deal-item">
+            <i class="fab fa-bitcoin"></i>
+            <span>Криптовалюта</span>
+        </div>
+        <div class="deal-item">
+            <i class="fas fa-exchange-alt"></i>
+            <span>Обмен валют</span>
+        </div>
+    </div>
+
+    <div class="new-guarantor-card glass reveal">
+        <div class="card-header">
+            <i class="fas fa-bolt" style="color:#ffae00"></i>
+            <h2 class="card-title">Гарант сделок</h2>
+        </div>
+        <span class="commission-badge">КОМИССИЯ — 1%</span>
+    </div>
+
+    <div class="section-title reveal">Почему я?</div>
+    <div class="why-me-row reveal">
+        <div class="benefit-card">
+            <i class="fas fa-rocket"></i>
+            <div class="benefit-title">Скорость</div>
+        </div>
+        <div class="benefit-card">
+            <i class="fas fa-shield-alt"></i>
+            <div class="benefit-title">Честность</div>
+        </div>
+        <div class="benefit-card">
+            <i class="fas fa-check-circle"></i>
+            <div class="benefit-title">Отзывы</div>
+        </div>
+        <div class="benefit-card">
+            <i class="fas fa-users"></i>
+            <div class="benefit-title">Медийность</div>
+        </div>
+    </div>
+
+    <div class="section-title reveal">Навигация</div>
+    <a href="https://t.me/aletr9" class="link-card glass reveal">
+        <i class="fas fa-bullhorn link-icon"></i>
+        <div class="link-info">
+            <div class="link-title">Новостной канал</div>
+            <div class="link-subtitle">@aletr9</div>
+        </div>
+    </a>
+    <a href="https://t.me/Elyadypa" class="link-card glass reveal">
+        <i class="fas fa-comment-dots link-icon"></i>
+        <div class="link-info">
+            <div class="link-title">Личный контакт</div>
+            <div class="link-subtitle">@Elyadypa</div>
+        </div>
+    </a>
+    <a href="https://t.me/Elyadypaa" class="link-card glass reveal">
+        <i class="fas fa-star link-icon"></i>
+        <div class="link-info">
+            <div class="link-title">Отзывы</div>
+            <div class="link-subtitle">@Elyadypaa</div>
+        </div>
+    </a>
+
+    <div class="wallet-card glass reveal">
+        <div class="wallet-header"><span>TON Кошелек</span><span class="copy-btn" onclick="copyWallet()">КОПИРОВАТЬ</span></div>
+        <div class="wallet-address" id="wallet">UQDBTEOFwIQn8LvcPrHfTRaWcHF61virBM5kwoK-zuzVzVQW</div>
+    </div>
+
+    <a href="https://t.me/Elyadypa" class="main-btn reveal">Связаться с Гарантом</a>
+    <div class="footer reveal">© CHRISTOVSKI 2026</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+<script>
+    particlesJS("particles-js", {
+        "particles": {
+            "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
+            "color": { "value": "#ffffff" },
+            "opacity": { "value": 0.15 },
+            "size": { "value": 2 },
+            "move": { "enable": true, "speed": 0.4, "direction": "top", "out_mode": "out" }
+        }
+    });
+
+    function reveal() {
+        var reveals = document.querySelectorAll(".reveal");
+        for (var i = 0; i < reveals.length; i++) {
+            var windowHeight = window.innerHeight;
+            var elementTop = reveals[i].getBoundingClientRect().top;
+            if (elementTop < windowHeight - 50) { reveals[i].classList.add("active"); }
+        }
+    }
+    window.addEventListener("scroll", reveal);
+    window.addEventListener("load", reveal);
+
+    function copyWallet() {
+        const addr = document.getElementById('wallet').innerText;
+        navigator.clipboard.writeText(addr).then(() => {
+            const toast = document.getElementById('toast');
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2000);
+        });
+    }
+</script>
+</body>
+</html>
